@@ -11,12 +11,12 @@ $.extend(RainbowColourMap.prototype, {
 	colours: []
 });
 
-function setPixel(imageData, x, y, r, g, b) {
+function setPixel(imageData, x, y, r, g, b, a) {
 	var i = (Math.floor(y) * imageData.width * 4) + (Math.floor(x) * 4);
 	imageData.data[i + 0] = r;
 	imageData.data[i + 1] = g;
 	imageData.data[i + 2] = b;
-	imageData.data[i + 3] = 255;
+	imageData.data[i + 3] = a;
 }
 
 function XPoint(x, y) {
@@ -24,10 +24,9 @@ function XPoint(x, y) {
 	this.y = y || 0;
 }
 
-function StrangeAttractor(canvas) {
+function XStrangeAttractor(canvas, context) {
 	var i, x;
-	this.canvas = canvas;
-	this.context = this.canvas.getContext('2d');
+	Attractor.apply(this, arguments);
 	this.width = canvas.width;
 	this.height = canvas.height;
 	this.randomiseParams(this.params1);
@@ -49,7 +48,9 @@ function StrangeAttractor(canvas) {
 	}
 }
 
-$.extend(StrangeAttractor.prototype, {
+XStrangeAttractor.prototype = new Attractor();
+
+$.extend(XStrangeAttractor.prototype, {
 	currentPointIndex : 0,
 	count : 0,
 	unit : (1 << 12),
@@ -138,11 +139,11 @@ $.extend(StrangeAttractor.prototype, {
 		imageData = this.context.getImageData(left, top, width, height);
 		for (i = 0; i < numPoints; i++) {
 			setPixel(imageData, pointArr[i].x, pointArr[i].y, colour.r, colour.g,
-					colour.b);
+					colour.b, 255);
 		}
 		this.context.putImageData(imageData, left, top);
 	},
-	drawFrame : function() {
+	tick : function() {
 		var i, currentPointIndex = this.currentPointIndex;
 		var x = 0, y = 0, out, u = this.count / 1000.0;
 		var tmp, BufIdx = 0;
@@ -175,6 +176,7 @@ $.extend(StrangeAttractor.prototype, {
 			y = out.y + this.nrand(8) - 4;
 		}
 
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.drawPoints(this.pointBuf1, currentPointIndex);
 		this.drawPoints(this.pointBuf2, this.currentPointIndex);
 

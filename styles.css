@@ -1,16 +1,5 @@
 @CHARSET "UTF-8";
 
-html {
-	/* FIXME: Fix this and make canvas max-height too */
-	min-height: 100%;
-}
-
 #theCanvas {
-	/*
-	To scale canvas up by a factor of two
-	position: relative;
-	width: 320px;
-	height: 240px;
-	*/
 	background: #000000;
 }
