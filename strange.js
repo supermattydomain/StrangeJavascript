@@ -72,11 +72,11 @@
 			}
 		}
 		startStopButton.on('click', toggleRunning);
-		init_strange(canvas);
+		var attractor = new StrangeAttractor(canvas);
 		var drawXStrangeButton = $('#drawXStrangeButton');
 		drawXStrangeButton.on('click', function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
-			draw_strange();
+			attractor.drawFrame();
 		});
 	});
 })(jQuery);
