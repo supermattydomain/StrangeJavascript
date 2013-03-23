@@ -7,7 +7,7 @@
 			keepRunning = false,
 			attractorTypes = [
 				{ label: "XScreensaver 'strange' hack", clazz: XStrangeAttractor },
-				{ label: "Point trail", clazz: PointTrailAttractor }
+				{ label: "Point trail (Peter de Jong)", clazz: PointTrailAttractor }
 			],
 			typeSelect = $('#typeSelect'),
 			attractor = new attractorTypes[0].clazz(canvas, context);

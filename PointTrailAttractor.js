@@ -9,7 +9,7 @@ function PointTrailAttractor(canvas, context) {
 PointTrailAttractor.prototype = new Attractor();
 $.extend(PointTrailAttractor.prototype, {
 	scale : 80,
-	numPoints : 2000,
+	numPoints : 500,
 	iteratePoint : function(x, y) {
 		return {
 			x: Math.sin(-0.89567065 * y) - Math.cos(1.59095860 * x),

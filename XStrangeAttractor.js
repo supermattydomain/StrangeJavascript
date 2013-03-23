@@ -6,7 +6,6 @@ function RainbowColourMap(size) {
 	}
 }
 
-RainbowColourMap.prototype = new Array();
 $.extend(RainbowColourMap.prototype, {
 	colours: []
 });
