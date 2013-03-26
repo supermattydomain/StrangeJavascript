@@ -40,5 +40,8 @@ $.extend(PointTrailAttractor.prototype, {
 		col = Math.floor(p.x * this.scale + this.canvas.width / 2);
 		setPixel(this.imageData, col, row, colour[0], colour[1], colour[2], 255);
 		this.context.putImageData(this.imageData, 0, 0, col, row, 1, 1);
+	},
+	onResize: function() {
+		this.imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 	}
 });

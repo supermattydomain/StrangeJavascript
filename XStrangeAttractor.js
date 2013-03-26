@@ -10,14 +10,6 @@ $.extend(RainbowColourMap.prototype, {
 	colours: []
 });
 
-function setPixel(imageData, x, y, r, g, b, a) {
-	var i = (Math.floor(y) * imageData.width * 4) + (Math.floor(x) * 4);
-	imageData.data[i + 0] = r;
-	imageData.data[i + 1] = g;
-	imageData.data[i + 2] = b;
-	imageData.data[i + 3] = a;
-}
-
 function XPoint(x, y) {
 	this.x = x || 0;
 	this.y = y || 0;
@@ -26,8 +18,6 @@ function XPoint(x, y) {
 function XStrangeAttractor(canvas, context) {
 	var i, x;
 	Attractor.apply(this, arguments);
-	this.width = canvas.width;
-	this.height = canvas.height;
 	this.randomiseParams(this.params1);
 	this.randomiseParams(this.params2);
 	this.iterateFunctions = [ this.iterateX2, this.iterateX3 ];
@@ -137,7 +127,7 @@ $.extend(XStrangeAttractor.prototype, {
 		var colour = this.colourMap.colours[this.currentColourIndex % this.colourMap.colours.length];
 		imageData = this.context.getImageData(left, top, width, height);
 		for (i = 0; i < numPoints; i++) {
-			setPixel(imageData, pointArr[i].x, pointArr[i].y, colour.r, colour.g,
+			setPixel(imageData, Math.floor(pointArr[i].x), Math.floor(pointArr[i].y), colour.r, colour.g,
 					colour.b, 255);
 		}
 		this.context.putImageData(imageData, left, top);
@@ -162,8 +152,8 @@ $.extend(XStrangeAttractor.prototype, {
 		for (i = this.maxPoints; i; --i) {
 			out = this.iterate(x, y);
 			assert(function() { BufIdx === this.currentPointIndex; });
-			this.pointBuf2[BufIdx].x = (this.width / this.unit / 2.2 * (out.x + this.unit * 1.1));
-			this.pointBuf2[BufIdx].y = (this.height / this.unit / 2.2 * (this.unit * 1.1 - out.y));
+			this.pointBuf2[BufIdx].x = (this.canvas.width / this.unit / 2.2 * (out.x + this.unit * 1.1));
+			this.pointBuf2[BufIdx].y = (this.canvas.height / this.unit / 2.2 * (this.unit * 1.1 - out.y));
 			// debug("X,Y: ", Buf[BufIdx].x, Buf[BufIdx].y);
 			BufIdx++;
 			this.currentPointIndex++;
@@ -195,5 +185,8 @@ $.extend(XStrangeAttractor.prototype, {
 			this.count = 0;
 		}
 		this.currentColourIndex++;
+	},
+	onResize: function() {
+		// NOP
 	}
 });

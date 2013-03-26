@@ -4,10 +4,16 @@
 <meta charset="UTF-8">
 <title>Strange Attractors</title>
 <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-ui/themes/base/jquery.ui.all.css">
 <script src="../lib/jquery/dist/jquery.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.core.js"></script>
+<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.widget.js"></script>
+<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.mouse.js"></script>
+<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.resizable.js"></script>
 <script src="../lib/jsdebug/debug.js" type="text/javascript"></script>
 <script src="../lib/jsdebug/assert.js" type="text/javascript"></script>
 <script src="../ringbuffer.js/ringbuffer.js" type="text/javascript"></script>
+<script src="../lib/js-lib/canvas.js" type="text/javascript"></script>
 <script src="../lib/js-lib/colours.js" type="text/javascript"></script>
 <script src="../lib/js-lib/calloc.js" type="text/javascript"></script>
 <script src="../lib/js-lib/maths.js" type="text/javascript"></script>
@@ -23,6 +29,8 @@
 <select id="typeSelect"></select>
 <input type="button" id="startStopButton" value="Start" />
 <br/>
-<canvas id="theCanvas" width="640" height="480"></canvas>
+<div class="resizable ui-widget-content">
+<canvas id="theCanvas" width="320" height="240"></canvas>
+</div>
 </body>
 </html>

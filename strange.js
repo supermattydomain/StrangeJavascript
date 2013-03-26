@@ -1,6 +1,8 @@
 (function($) {
 	$(function() {
-		var canvas = $('#theCanvas')[0],
+		var resizee = $('.resizable'),
+			$canvas = $('#theCanvas'),
+			canvas = $canvas[0],
 			context = canvas.getContext('2d'),
 			startStopButton = $('#startStopButton'),
 			timeout = undefined,
@@ -11,6 +13,13 @@
 			],
 			typeSelect = $('#typeSelect'),
 			attractor = new attractorTypes[0].clazz(canvas, context);
+		resizee.resizable({ handles: "all", animate: false, ghost: true, autohide: false });
+		resizee.on('resizestop', function(event, ui) {
+			$canvas.css({ width: '100%', height: '100%' });
+			canvas.width = $canvas.width();
+			canvas.height = $canvas.height();
+			attractor.onResize();
+		});
 		$(attractorTypes).each(function(i, type) {
 			var option = $('<option>');
 			option.text(type.label);

@@ -3,3 +3,8 @@
 #theCanvas {
 	background: #000000;
 }
+
+.resizable {
+	float: left; /* trigger shrinkwrap */
+	padding: 10px;
+}
