@@ -29,13 +29,13 @@
 			attractor.tick();
 			// Arrange for next tick call to be made as soon as possible.
 			if (keepRunning) { 
-				setZeroTimeout(tick);
+				setImmediate(tick);
 			}
 		}
 		function start() {
 			keepRunning = true;
 			startStopButton.val('Stop');
-			timeout = setTimeout(tick, 0);
+			setImmediate(tick);
 		}
 		function stop() {
 			keepRunning = false;
