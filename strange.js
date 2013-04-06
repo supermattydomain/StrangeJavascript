@@ -5,7 +5,6 @@
 			canvas = $canvas[0],
 			context = canvas.getContext('2d'),
 			startStopButton = $('#startStopButton'),
-			timeout = undefined,
 			keepRunning = false,
 			attractorTypes = [
 				{ label: "XScreensaver 'strange' hack", clazz: XStrangeAttractor },
@@ -30,7 +29,7 @@
 			attractor.tick();
 			// Arrange for next tick call to be made as soon as possible.
 			if (keepRunning) { 
-				timeout = setZeroTimeout(tick);
+				setZeroTimeout(tick);
 			}
 		}
 		function start() {
@@ -40,8 +39,6 @@
 		}
 		function stop() {
 			keepRunning = false;
-			clearTimeout(timeout);
-			timeout = undefined;
 			startStopButton.val('Start');
 		}
 		function toggleRunning() {
