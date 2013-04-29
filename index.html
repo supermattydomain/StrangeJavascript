@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Strange Attractors</title>
-<link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../lib/jquery-ui/themes/base/jquery.ui.all.css" />
-<script src="../lib/jquery/dist/jquery.js" type="text/javascript"></script>
-<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.core.js"></script>
-<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.widget.js"></script>
-<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.mouse.js"></script>
-<script language="javascript" type="text/javascript" src="../lib/jquery-ui/ui/jquery.ui.resizable.js"></script>
-<script src="../lib/jsdebug/debug.js" type="text/javascript"></script>
-<script src="../lib/jsdebug/assert.js" type="text/javascript"></script>
-<script src="../ringbuffer.js/ringbuffer.js" type="text/javascript"></script>
-<script src="../lib/js-lib/canvas.js" type="text/javascript"></script>
-<script src="../lib/js-lib/colours.js" type="text/javascript"></script>
-<script src="../lib/js-lib/calloc.js" type="text/javascript"></script>
-<script src="../lib/js-lib/maths.js" type="text/javascript"></script>
-<script src="../lib/js-lib/setImmediate.js" type="text/javascript"></script>
-<script src="Attractor.js" type="text/javascript"></script>
-<script src="PointTrailAttractor.js" type="text/javascript"></script>
-<script src="XStrangeAttractor.js" type="text/javascript"></script>
-<script src="strange.js" type="text/javascript"></script>
+  <meta charset="UTF-8">
+  <title>Strange Attractors</title>
+  <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../lib/jquery-ui/jquery-ui-1.10.2.custom.min.css" />
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="../lib/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+  <script type="text/javascript" src="../lib/jsdebug/debug.js"></script>
+  <script type="text/javascript" src="../lib/jsdebug/assert.js"></script>
+  <script type="text/javascript" src="../ringbuffer.js/ringbuffer.js"></script>
+  <script type="text/javascript" src="../lib/js-lib/canvas.js"></script>
+  <script type="text/javascript" src="../lib/js-lib/colours.js"></script>
+  <script type="text/javascript" src="../lib/js-lib/calloc.js"></script>
+  <script type="text/javascript" src="../lib/js-lib/maths.js"></script>
+  <script type="text/javascript" src="../lib/js-lib/setImmediate.js"></script>
+  <script type="text/javascript" src="Attractor.js"></script>
+  <script type="text/javascript" src="PointTrailAttractor.js"></script>
+  <script type="text/javascript" src="XStrangeAttractor.js"></script>
+  <script type="text/javascript" src="strange.js"></script>
 </head>
 <body>
+
 <h1>Strange Attractors</h1>
+
 <select id="typeSelect"></select>
 <input type="button" id="startStopButton" value="Start" />
-<br/>
+<br class="clearfloat" />
 <div class="resizable ui-widget-content">
 <canvas id="theCanvas" width="320" height="240"></canvas>
 </div>
+
 </body>
 </html>

@@ -11,7 +11,10 @@
 				{ label: "Point trail (Peter de Jong)", clazz: PointTrailAttractor }
 			],
 			typeSelect = $('#typeSelect'),
-			attractor = new attractorTypes[0].clazz(canvas, context);
+			attractor = new attractorTypes[0].clazz(canvas, context)
+		;
+		$('select').menu();
+		$('button, input[type="button"]').button();
 		resizee.resizable({ handles: "all", animate: false, ghost: true, autohide: false });
 		resizee.on('resizestop', function(event, ui) {
 			$canvas.css({ width: '100%', height: '100%' });
