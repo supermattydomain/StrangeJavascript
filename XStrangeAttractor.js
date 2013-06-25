@@ -1,7 +1,7 @@
 function RainbowColourMap(size) {
 	var i, hsb;
 	for (i = 0; i < size; i++) {
-		hsb = new HSBColour(360 * i / size, 1.0, 1.0);
+		hsb = new HSBColour(i / size, 1.0, 1.0);
 		this.colours[i] = hsb.toRGB();
 	}
 }
@@ -9,11 +9,6 @@ function RainbowColourMap(size) {
 $.extend(RainbowColourMap.prototype, {
 	colours: []
 });
-
-function XPoint(x, y) {
-	this.x = x || 0;
-	this.y = y || 0;
-}
 
 function XStrangeAttractor(canvas, context) {
 	var i, x;
@@ -24,8 +19,10 @@ function XStrangeAttractor(canvas, context) {
 	this.iterate = this.iterateFunctions[this.nrand(this.iterateFunctions.length)];
 	this.colourMap = new RainbowColourMap(this.numColours);
 	this.currentColourIndex = this.nrand(this.colourMap.colours.length);
-	this.pointBuf1 = calloc(this.maxPoints, XPoint);
-	this.pointBuf2 = calloc(this.maxPoints, XPoint);
+	this.XBuf1 = [];
+	this.YBuf1 = [];
+	this.XBuf2 = [];
+	this.YBuf2 = [];
 	for (i = 0; i <= this.unit2; ++i) {
 		/* x = ( DBL )(i)/UNIT2; */
 		/* x = sin( M_PI/2.0*x ); */
@@ -61,9 +58,7 @@ $.extend(XStrangeAttractor.prototype, {
 		return Math.floor(Math.random() * 0x7fffffff) % n;
 	},
 	gaussianRandom : function(c, A, S) {
-		var y;
-
-		y = Math.random();
+		var y = Math.random();
 		y = A * (1.0 - Math.exp(-y * y * S)) / (1.0 - Math.exp(-S));
 		if (this.nrand(2)) {
 			return (c + y);
@@ -121,13 +116,13 @@ $.extend(XStrangeAttractor.prototype, {
 			y : (Tmp_y * this.unit) / Tmp_z
 		};
 	},
-	drawPoints : function(pointArr, numPoints) {
+	drawPoints : function(XArr, YArr, numPoints) {
 		var i, imageData;
 		var top = 0, left = 0, width = this.canvas.width, height = this.canvas.height;
 		var colour = this.colourMap.colours[this.currentColourIndex % this.colourMap.colours.length];
 		imageData = this.context.getImageData(left, top, width, height);
 		for (i = 0; i < numPoints; i++) {
-			setPixel(imageData, Math.floor(pointArr[i].x), Math.floor(pointArr[i].y), colour.r, colour.g,
+			setPixel(imageData, Math.floor(XArr[i]), Math.floor(YArr[i]), colour.r, colour.g,
 					colour.b, 255);
 		}
 		this.context.putImageData(imageData, left, top);
@@ -151,9 +146,9 @@ $.extend(XStrangeAttractor.prototype, {
 		this.currentPointIndex = 0;
 		for (i = this.maxPoints; i; --i) {
 			out = this.iterate(x, y);
-			assert(function() { BufIdx === this.currentPointIndex; });
-			this.pointBuf2[BufIdx].x = (this.canvas.width / this.unit / 2.2 * (out.x + this.unit * 1.1));
-			this.pointBuf2[BufIdx].y = (this.canvas.height / this.unit / 2.2 * (this.unit * 1.1 - out.y));
+			// assert(function() { BufIdx === this.currentPointIndex; });
+			this.XBuf2[BufIdx] = (this.canvas.width / this.unit / 2.2 * (out.x + this.unit * 1.1));
+			this.YBuf2[BufIdx] = (this.canvas.height / this.unit / 2.2 * (this.unit * 1.1 - out.y));
 			// debug("X,Y: ", Buf[BufIdx].x, Buf[BufIdx].y);
 			BufIdx++;
 			this.currentPointIndex++;
@@ -166,12 +161,15 @@ $.extend(XStrangeAttractor.prototype, {
 		}
 
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.drawPoints(this.pointBuf1, currentPointIndex);
-		this.drawPoints(this.pointBuf2, this.currentPointIndex);
+		this.drawPoints(this.XBuf1, this.YBuf1, currentPointIndex);
+		this.drawPoints(this.XBuf2, this.YBuf2, this.currentPointIndex);
 
-		tmp = this.pointBuf1;
-		this.pointBuf1 = this.pointBuf2;
-		this.pointBuf2 = tmp;
+		tmp = this.XBuf1;
+		this.XBuf1 = this.XBuf2;
+		this.XBuf2 = tmp;
+		tmp = this.YBuf1;
+		this.YBuf1 = this.YBuf2;
+		this.YBuf2 = tmp;
 
 		if ((xmax - xmin < this.unit * 0.2) && (ymax - ymin < this.unit * 0.2)) {
 			this.count += 4 * this.speed;
@@ -185,8 +183,5 @@ $.extend(XStrangeAttractor.prototype, {
 			this.count = 0;
 		}
 		this.currentColourIndex++;
-	},
-	onResize: function() {
-		// NOP
 	}
 });
